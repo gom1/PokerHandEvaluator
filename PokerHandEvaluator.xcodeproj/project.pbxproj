@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3D6AA8CB1E4D653500A469E3 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6AA8CA1E4D653500A469E3 /* main.swift */; };
 		3D6AA8D81E4D655900A469E3 /* PokerHandEvaluatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6AA8D71E4D655900A469E3 /* PokerHandEvaluatorTests.swift */; };
+		3D6AA8E01E4D69AA00A469E3 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6AA8CA1E4D653500A469E3 /* main.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,6 +30,7 @@
 		3D6AA8D51E4D655900A469E3 /* PokerHandEvaluatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PokerHandEvaluatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D6AA8D71E4D655900A469E3 /* PokerHandEvaluatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokerHandEvaluatorTests.swift; sourceTree = "<group>"; };
 		3D6AA8D91E4D655900A469E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3D6AA8DE1E4D67F500A469E3 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 				3D6AA8C91E4D653500A469E3 /* PokerHandEvaluator */,
 				3D6AA8D61E4D655900A469E3 /* PokerHandEvaluatorTests */,
 				3D6AA8C81E4D653500A469E3 /* Products */,
+				3D6AA8DD1E4D67F500A469E3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -82,6 +85,14 @@
 				3D6AA8D91E4D655900A469E3 /* Info.plist */,
 			);
 			path = PokerHandEvaluatorTests;
+			sourceTree = "<group>";
+		};
+		3D6AA8DD1E4D67F500A469E3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3D6AA8DE1E4D67F500A469E3 /* XCTest.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,6 +195,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D6AA8E01E4D69AA00A469E3 /* main.swift in Sources */,
 				3D6AA8D81E4D655900A469E3 /* PokerHandEvaluatorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -344,6 +356,7 @@
 				3D6AA8D01E4D653500A469E3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3D6AA8DA1E4D655900A469E3 /* Build configuration list for PBXNativeTarget "PokerHandEvaluatorTests" */ = {
 			isa = XCConfigurationList;
@@ -352,6 +365,7 @@
 				3D6AA8DC1E4D655900A469E3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
