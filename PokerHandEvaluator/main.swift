@@ -13,17 +13,22 @@ enum PokerSuit: String {
     case spades
 }
 
-enum PokerValue: Int{
+enum PokerValue: Int {
     case ace = 1, two, three, four, five, six, seven, eight, nine, ten, jack, queen, king
     }
 
-struct Card {
+struct Card: Equatable{
     let value: PokerValue
     let suit: PokerSuit
     init(_ value: PokerValue, _ suit: PokerSuit) {
         self.value = value
         self.suit = suit
     }
+    
+    public static func ==(lhs: Card, rhs: Card) -> Bool {
+        return (lhs.value == rhs.value) && (lhs.suit == rhs.suit)
+    }
+    
 }
 
 enum PokerHandRank: String{
@@ -61,13 +66,21 @@ struct PokerHand {
             for j in i+1...hand.count - 1 {
                 print (hand[i].value, hand[i].suit, hand[j].value, hand[j].suit)
                 print (i, j)
-                if (hand[i].value, hand[i].suit) == (hand[j].value, hand[j].suit) {
+                if hand[i] == hand[j] {
                     return false
                 }
             }
         }
         return true
     }
+    
+//    func getHandCardValues() -> [PokerValue] {
+//        
+//    }
+}
+
+struct PokerHandEvaluator {
+    let hand: [Card]
 }
 
 //class PokerHandEvaluator {

@@ -46,6 +46,18 @@ class PokerHandEvaluatorTests: XCTestCase {
         let pokerHand = PokerHand([card1, card2, card3, card4, card5])
         XCTAssertFalse(pokerHand.isHandValid())
     }
+    
+    func testGetRanks() {
+        let card1 = Card(PokerValue.king, PokerSuit.hearts)
+        let card2 = Card(PokerValue.king, PokerSuit.hearts)
+        let card3 = Card(PokerValue.king, PokerSuit.hearts)
+        let card4 = Card(PokerValue.king, PokerSuit.hearts)
+        let card5 = Card(PokerValue.king, PokerSuit.hearts)
+        
+        let pokerHand = PokerHand([card1, card2, card3, card4, card5])
+        
+    }
+    
 
 }
 
