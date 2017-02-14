@@ -14,7 +14,19 @@ enum PokerSuit: String {
 }
 
 enum PokerValue: Int {
-    case ace = 1, two, three, four, five, six, seven, eight, nine, ten, jack, queen, king
+    case ace = 1
+    case two
+    case three
+    case four
+    case five
+    case six
+    case seven
+    case eight
+    case nine
+    case ten
+    case jack
+    case queen
+    case king
     }
 
 struct Card: Equatable{
@@ -25,14 +37,15 @@ struct Card: Equatable{
         self.suit = suit
     }
     
+    //MARK: From Equatable
     public static func ==(lhs: Card, rhs: Card) -> Bool {
         return (lhs.value == rhs.value) && (lhs.suit == rhs.suit)
     }
     
 }
 
-enum PokerHandRank: String{
-    case HighCard
+enum PokerHandRank: Int{
+    case HighCard = 1
     case OnePair
     case TwoPairs
     case ThreeOfAKind
@@ -49,7 +62,6 @@ struct PokerHand {
     let card3: Card
     let card4: Card
     let card5: Card
-    
     let hand: [Card]
     
     init (_ cards: [Card]) {
@@ -64,8 +76,6 @@ struct PokerHand {
     func isHandValid() -> Bool {
         for i in 0...hand.count - 2 {
             for j in i+1...hand.count - 1 {
-                print (hand[i].value, hand[i].suit, hand[j].value, hand[j].suit)
-                print (i, j)
                 if hand[i] == hand[j] {
                     return false
                 }
@@ -74,25 +84,47 @@ struct PokerHand {
         return true
     }
     
-//    func getHandCardValues() -> [PokerValue] {
-//        
-//    }
+    func getHandCardValues() -> [PokerValue] {
+        var cardValues: [PokerValue] = []
+        for card in 0...hand.count - 1 {
+            cardValues.append(hand[card].value)
+        }
+        return cardValues
+    }
+    
+    func getHandCardSuits() -> [PokerSuit] {
+        var cardSuits: [PokerSuit] = []
+        for card in 0...hand.count - 1 {
+            cardSuits.append(hand[card].suit)
+        }
+        return cardSuits
+    }
+    
+    func getCountByType(type: PokerValue) -> [PokerValue: Int] {
+        
+    }
+    
+    
+    func getCountByType(type: PokerSuit) -> [PokerSuit: Int] {
+        
+    }
+    
+    func isFlush() -> Bool{
+        
+    }
 }
 
-struct PokerHandEvaluator {
-    let hand: [Card]
-}
 
-//class PokerHandEvaluator {
-//    let cards =
-//}
+
+class PokerHandEvaluator {
+    
+}
 
 let card1 = Card(PokerValue.king, PokerSuit.hearts)
-let card2 = Card(PokerValue.king, PokerSuit.diamonds)
+let card2 = Card(PokerValue.ace, PokerSuit.diamonds)
 let card3 = Card(PokerValue.king, PokerSuit.diamonds)
 let card4 = Card(PokerValue.three, PokerSuit.spades)
 let card5 = Card(PokerValue.four, PokerSuit.spades)
 let pokerHand = PokerHand([card1, card2, card3, card4, card5])
 
-print (pokerHand.isHandValid())
-
+print (pokerHand.getHandCardValues())
