@@ -33,6 +33,7 @@ class PokerHandEvaluatorTests: XCTestCase {
         let card4 = Card(PokerValue.ten, PokerSuit.spades)
         let card5 = Card(PokerValue.four, PokerSuit.spades)
         let pokerHand = PokerHand([card1, card2, card3, card4, card5])
+        
         XCTAssertTrue(pokerHand.isHandValid())
     }
     
@@ -70,16 +71,118 @@ class PokerHandEvaluatorTests: XCTestCase {
         XCTAssertEqual(pokerHand.getHandCardSuits(), [PokerSuit.hearts, PokerSuit.spades, PokerSuit.diamonds, PokerSuit.hearts, PokerSuit.spades])
     }
     
-    func testIsFlush() {
+    func testRankIsFullHouse() {
         let card1 = Card(PokerValue.king, PokerSuit.hearts)
-        let card2 = Card(PokerValue.queen, PokerSuit.spades)
-        let card3 = Card(PokerValue.ace, PokerSuit.diamonds)
-        let card4 = Card(PokerValue.two, PokerSuit.hearts)
-        let card5 = Card(PokerValue.five, PokerSuit.spades)
+        let card2 = Card(PokerValue.king, PokerSuit.diamonds)
+        let card3 = Card(PokerValue.king, PokerSuit.spades)
+        let card4 = Card(PokerValue.three, PokerSuit.hearts)
+        let card5 = Card(PokerValue.three, PokerSuit.spades)
+        
         let pokerHand = PokerHand([card1, card2, card3, card4, card5])
-        XCTAssertEqual(pokerHandEvaluator., <#T##expression2: [T : U]##[T : U]#>)
+        XCTAssertEqual(pokerHand.getHandRank(), PokerHandRank.fullHouse)
     }
     
+    func testRankIsFourOfAKind() {
+        let card1 = Card(PokerValue.king, PokerSuit.hearts)
+        let card2 = Card(PokerValue.king, PokerSuit.diamonds)
+        let card3 = Card(PokerValue.king, PokerSuit.spades)
+        let card4 = Card(PokerValue.king, PokerSuit.clubs)
+        let card5 = Card(PokerValue.three, PokerSuit.spades)
+        
+        let pokerHand = PokerHand([card1, card2, card3, card4, card5])
+        XCTAssertEqual(pokerHand.getHandRank(), PokerHandRank.fourOfAKind)
+    }
+    
+    func testRankIsThreeOfAKind() {
+        let card1 = Card(PokerValue.king, PokerSuit.hearts)
+        let card2 = Card(PokerValue.king, PokerSuit.diamonds)
+        let card3 = Card(PokerValue.king, PokerSuit.spades)
+        let card4 = Card(PokerValue.four, PokerSuit.clubs)
+        let card5 = Card(PokerValue.three, PokerSuit.spades)
+        
+        let pokerHand = PokerHand([card1, card2, card3, card4, card5])
+        XCTAssertEqual(pokerHand.getHandRank(), PokerHandRank.threeOfAKind)
+    }
+    
+    func testRankIsTwoPairs() {
+        let card1 = Card(PokerValue.king, PokerSuit.hearts)
+        let card2 = Card(PokerValue.king, PokerSuit.diamonds)
+        let card3 = Card(PokerValue.queen, PokerSuit.spades)
+        let card4 = Card(PokerValue.queen, PokerSuit.clubs)
+        let card5 = Card(PokerValue.three, PokerSuit.spades)
+        
+        let pokerHand = PokerHand([card1, card2, card3, card4, card5])
+        XCTAssertEqual(pokerHand.getHandRank(), PokerHandRank.twoPairs)
+    }
+    
+    func testRankIsOnePair() {
+        let card1 = Card(PokerValue.king, PokerSuit.hearts)
+        let card2 = Card(PokerValue.king, PokerSuit.diamonds)
+        let card3 = Card(PokerValue.ace, PokerSuit.spades)
+        let card4 = Card(PokerValue.seven, PokerSuit.clubs)
+        let card5 = Card(PokerValue.three, PokerSuit.hearts)
+        
+        let pokerHand = PokerHand([card1, card2, card3, card4, card5])
+        XCTAssertEqual(pokerHand.getHandRank(), PokerHandRank.onePair)
+    }
+    
+    func testRankIsFlush() {
+        let card1 = Card(PokerValue.king, PokerSuit.hearts)
+        let card2 = Card(PokerValue.two, PokerSuit.hearts)
+        let card3 = Card(PokerValue.jack, PokerSuit.hearts)
+        let card4 = Card(PokerValue.ten, PokerSuit.hearts)
+        let card5 = Card(PokerValue.nine, PokerSuit.hearts)
+        
+        let pokerHand = PokerHand([card1, card2, card3, card4, card5])
+        XCTAssertEqual(pokerHand.getHandRank(), PokerHandRank.flush)
+    }
+
+    
+    func testRankIsStraight() {
+        let card1 = Card(PokerValue.king, PokerSuit.hearts)
+        let card2 = Card(PokerValue.queen, PokerSuit.spades)
+        let card3 = Card(PokerValue.jack, PokerSuit.diamonds)
+        let card4 = Card(PokerValue.ten, PokerSuit.hearts)
+        let card5 = Card(PokerValue.nine, PokerSuit.hearts)
+        
+        let pokerHand = PokerHand([card1, card2, card3, card4, card5])
+        XCTAssertEqual(pokerHand.getHandRank(), PokerHandRank.straight)
+    }
+    
+    func testRankIsStraightFlush() {
+        let card1 = Card(PokerValue.king, PokerSuit.hearts)
+        let card2 = Card(PokerValue.queen, PokerSuit.hearts)
+        let card3 = Card(PokerValue.jack, PokerSuit.hearts)
+        let card4 = Card(PokerValue.ten, PokerSuit.hearts)
+        let card5 = Card(PokerValue.nine, PokerSuit.hearts)
+        
+        let pokerHand = PokerHand([card1, card2, card3, card4, card5])
+        XCTAssertEqual(pokerHand.getHandRank(), PokerHandRank.straightFlush)
+    }
+    
+
+    func testRankIsRoyalFlush() {
+        let card1 = Card(PokerValue.king, PokerSuit.hearts)
+        let card2 = Card(PokerValue.queen, PokerSuit.hearts)
+        let card3 = Card(PokerValue.jack, PokerSuit.hearts)
+        let card4 = Card(PokerValue.ace, PokerSuit.hearts)
+        let card5 = Card(PokerValue.ten, PokerSuit.hearts)
+        
+        let pokerHand = PokerHand([card1, card2, card3, card4, card5])
+        XCTAssertEqual(pokerHand.getHandRank(), PokerHandRank.royalFlush)
+    }
+
+    func testRankIsHighCard() {
+        let card1 = Card(PokerValue.two, PokerSuit.hearts)
+        let card2 = Card(PokerValue.queen, PokerSuit.diamonds)
+        let card3 = Card(PokerValue.jack, PokerSuit.hearts)
+        let card4 = Card(PokerValue.ace, PokerSuit.clubs)
+        let card5 = Card(PokerValue.ten, PokerSuit.hearts)
+        
+        let pokerHand = PokerHand([card1, card2, card3, card4, card5])
+        XCTAssertEqual(pokerHand.getHandRank(), PokerHandRank.highCard)
+    }
+
 
 }
 
