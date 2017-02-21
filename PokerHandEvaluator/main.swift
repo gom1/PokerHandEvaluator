@@ -6,6 +6,8 @@
 //  Copyright © 2017 German Om. All rights reserved.
 //
 
+import Foundation
+
 enum PokerSuit: String {
     case hearts
     case diamonds
@@ -199,7 +201,7 @@ struct PokerHand {
     func isRoyal(_ handValues: [PokerValue]) -> Bool {
         var isRoyal = false
         var sortedValues = handValues.sorted()
-        if sortedValues[0].rawValue == 1 && sortedValues[4].rawValue - sortedValues[1].rawValue == 3 {
+        if sortedValues[0].rawValue == 1 && sortedValues[4].rawValue - sortedValues[1].rawValue == 3 && sortedValues[4].rawValue == 13 {
             isRoyal = true
         }
         return isRoyal
@@ -248,20 +250,93 @@ struct PokerHand {
         else {
             handRank = PokerHandRank.highCard               //HIGH CARD
         }
-        
-        
         return handRank
     }
 }
 
-let card1 = Card(PokerValue.king, PokerSuit.hearts)
-let card2 = Card(PokerValue.queen, PokerSuit.spades)
-let card3 = Card(PokerValue.ten, PokerSuit.diamonds)
-let card4 = Card(PokerValue.nine, PokerSuit.hearts)
-let card5 = Card(PokerValue.jack, PokerSuit.hearts)
-let pokerHand = PokerHand([card1, card2, card3, card4, card5])
+let userInputValueTranslator: [String: PokerValue] = [
+    "A": PokerValue.ace,
+    "K": PokerValue.king,
+    "Q": PokerValue.queen,
+    "J": PokerValue.jack,
+    "10": PokerValue.ten,
+    "9": PokerValue.nine,
+    "8": PokerValue.eight,
+    "7": PokerValue.seven,
+    "6": PokerValue.six,
+    "5": PokerValue.five,
+    "4": PokerValue.four,
+    "3": PokerValue.three,
+    "2": PokerValue.two
+]
 
-let a = pokerHand.getHandCardValues()
-let counter = pokerHand.getValueCount(a)
-print (pokerHand.getHandRank())
+let userInputSuitTranslator: [String: PokerSuit] = [
+    "H": PokerSuit.hearts,
+    "D": PokerSuit.diamonds,
+    "C": PokerSuit.clubs,
+    "S": PokerSuit.spades
+]
 
+func translateUserInputToCardInput(card: [String?]) -> (PokerValue, PokerSuit)? {
+    if card.count != 2 {
+        return nil
+    }
+    guard let value = card[0], let suit = card[1] else {
+        return nil
+    }
+    guard let validValue = userInputValueTranslator[value], let validSuit = userInputSuitTranslator[suit] else {
+        return nil
+    }
+    return (validValue, validSuit)
+
+}
+
+func isNewCardValid(_ newCard: Card, cardsSoFar: [Card]) -> Bool {
+    var newCardValid = true
+    for card in cardsSoFar {
+        if newCard == card {
+            newCardValid = false
+            break
+        }
+    }
+    return newCardValid
+}
+
+func main () {
+    var validInput = false
+    var userPokerHand: [Card] = []
+
+    while validInput != true {
+        // ask for poker hand
+        print ("Please enter your poker hand following the following format...")
+        print("Valid value: A, K, Q, J, 10, 9, 8, 7, 6, 5, 4, 3, 2")
+        print ("Valid suits: H, D, S, C")
+        print ("FORMAT: '[(value, suit), (value, suit), (value, suit), (value, suit), (value, suit)]'")
+        print ("EXAMPLE: '[(A, H), (9, D), (3, D), (K, S), (J, C)]'")
+        while userPokerHand.count < 5 {
+            print (">> Please enter card \(userPokerHand.count + 1):")
+            let userInput: String = readLine()!
+            let userInputArr = userInput.components(separatedBy: ",")
+            guard let card = translateUserInputToCardInput(card: userInputArr) else {
+                print("Invalid Input, please try entering the card details again!")
+                continue
+            }
+            let newCard = Card(card.0, card.1)
+            if isNewCardValid(newCard, cardsSoFar: userPokerHand) != true {
+                continue
+            }
+            print ("Successful card addition to the Hand!")
+            userPokerHand.append(newCard)
+            
+            print (userPokerHand)
+        }
+        let pokerHand = PokerHand(userPokerHand)
+        if pokerHand.isHandValid() != true {
+            continue
+        }
+        validInput = true
+        print ("You have a: \(pokerHand.getHandRank())")
+
+    }
+}
+main()
