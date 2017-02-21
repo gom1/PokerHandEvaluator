@@ -311,8 +311,8 @@ func main () {
         print ("Please enter your poker hand following the following format...")
         print("Valid value: A, K, Q, J, 10, 9, 8, 7, 6, 5, 4, 3, 2")
         print ("Valid suits: H, D, S, C")
-        print ("FORMAT: '[(value, suit), (value, suit), (value, suit), (value, suit), (value, suit)]'")
-        print ("EXAMPLE: '[(A, H), (9, D), (3, D), (K, S), (J, C)]'")
+        print ("FORMAT: value,suit")
+        print ("EXAMPLE: 'A,H' (for Ace of Hearts), or '10,D' (for 10 of Diamonds)")
         while userPokerHand.count < 5 {
             print (">> Please enter card \(userPokerHand.count + 1):")
             let userInput: String = readLine()!
@@ -327,7 +327,6 @@ func main () {
             }
             print ("Successful card addition to the Hand!")
             userPokerHand.append(newCard)
-            
             print (userPokerHand)
         }
         let pokerHand = PokerHand(userPokerHand)
