@@ -159,7 +159,6 @@ class PokerHandEvaluatorTests: XCTestCase {
         let pokerHand = PokerHand([card1, card2, card3, card4, card5])
         XCTAssertEqual(pokerHand.getHandRank(), PokerHandRank.straightFlush)
     }
-    
 
     func testRankIsRoyalFlush() {
         let card1 = Card(PokerValue.king, PokerSuit.hearts)

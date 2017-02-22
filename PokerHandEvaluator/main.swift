@@ -308,8 +308,9 @@ func main () {
 
     while validInput != true {
         // ask for poker hand
-        print ("Please enter your poker hand following the following format...")
-        print("Valid value: A, K, Q, J, 10, 9, 8, 7, 6, 5, 4, 3, 2")
+        print ("\n<<< WELCOME TO THE POKER HAND EVALUATOR!>>>\n")
+        print ("Please enter your poker hand following the following format:")
+        print ("Valid value: A, K, Q, J, 10, 9, 8, 7, 6, 5, 4, 3, 2")
         print ("Valid suits: H, D, S, C")
         print ("FORMAT: value,suit")
         print ("EXAMPLE: 'A,H' (for Ace of Hearts), or '10,D' (for 10 of Diamonds)")
@@ -323,19 +324,26 @@ func main () {
             }
             let newCard = Card(card.0, card.1)
             if isNewCardValid(newCard, cardsSoFar: userPokerHand) != true {
+                print ("Cannot add a duplicate card to the hand. Please try to enter another card.\n")
                 continue
             }
             print ("Successful card addition to the Hand!")
             userPokerHand.append(newCard)
-            print (userPokerHand)
+            
+            // print cards in your hand so far...
+            print ("Your hand consists of the following cards so far:")
+            for card_num in 0...userPokerHand.count - 1{
+                print ("Card #\(card_num + 1): \(userPokerHand[card_num].value) of \(userPokerHand[card_num].suit)")
+            }
+            print ("")
         }
         let pokerHand = PokerHand(userPokerHand)
         if pokerHand.isHandValid() != true {
+            print ("Poker Hand is Invalid!")
             continue
         }
         validInput = true
-        print ("You have a: \(pokerHand.getHandRank())")
-
+        print ("You have a: \(pokerHand.getHandRank())\n")
     }
 }
 main()
